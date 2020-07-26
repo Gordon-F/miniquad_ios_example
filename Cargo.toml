@@ -1,0 +1,11 @@
+[package]
+name = "miniquad_ios_example"
+version = "0.1.0"
+authors = ["Gordon-F"]
+edition = "2018"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+miniquad = { git = "https://github.com/Gordon-F/miniquad.git", branch = "ios-support" }
