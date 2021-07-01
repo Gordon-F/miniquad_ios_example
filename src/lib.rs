@@ -45,7 +45,14 @@ impl Stage {
             images: vec![texture],
         };
 
-        let shader = Shader::new(ctx, shader::VERTEX, shader::FRAGMENT, shader::META).unwrap();
+        let shader_meta = ShaderMeta {
+            images: vec!["tex".to_owned()],
+            uniforms: UniformBlockLayout {
+                uniforms: vec![UniformDesc::new("offset", UniformType::Float2)],
+            },
+        };
+
+        let shader = Shader::new(ctx, shader::VERTEX, shader::FRAGMENT, shader_meta).unwrap();
 
         let pipeline = Pipeline::new(
             ctx,
@@ -94,8 +101,6 @@ pub extern "C" fn main_rs() {
 }
 
 mod shader {
-    use miniquad::*;
-
     pub const VERTEX: &str = r#"#version 100
     attribute vec2 pos;
     attribute vec2 uv;
@@ -117,13 +122,6 @@ mod shader {
     void main() {
         gl_FragColor = texture2D(tex, texcoord);
     }"#;
-
-    pub const META: ShaderMeta = ShaderMeta {
-        images: &["tex"],
-        uniforms: UniformBlockLayout {
-            uniforms: &[UniformDesc::new("offset", UniformType::Float2)],
-        },
-    };
 
     #[repr(C)]
     pub struct Uniforms {
