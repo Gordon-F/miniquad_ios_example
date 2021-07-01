@@ -3,6 +3,7 @@ name = "miniquad_ios_example"
 version = "0.1.0"
 authors = ["Gordon-F"]
 edition = "2018"
+license = "MIT OR Apache-2.0"
 
 [lib]
 crate-type = ["staticlib"]
