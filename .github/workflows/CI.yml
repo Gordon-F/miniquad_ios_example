@@ -1,0 +1,24 @@
+name: pipeline
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+     matrix:
+        target: [ "aarch64-apple-ios", "x86_64-apple-ios" ]
+    name: iOS Build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          with:
+          profile: minimal
+          toolchain: ${{ matrix.target }}
+          override: true
+      - uses: actions-rs/cargo@v1
+        name: Build ${{ matrix.target }}
+        with:
+          command: build
+          args: --target ${{ matrix.target }}
