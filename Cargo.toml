@@ -8,4 +8,4 @@ edition = "2018"
 crate-type = ["staticlib"]
 
 [dependencies]
-miniquad = "0.3.0-alpha.12"
+miniquad = "0.3.0-alpha.37"
