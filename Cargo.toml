@@ -9,4 +9,4 @@ license = "MIT OR Apache-2.0"
 crate-type = ["staticlib"]
 
 [dependencies]
-miniquad = "0.3.0-alpha.37"
+miniquad = "0.3.0-alpha.41"
