@@ -16,7 +16,8 @@ targets:
     sources: src
     type: application
     platform: iOS
-    deploymentTarget: "13.0"
+    deploymentTarget: "12.0"
+    sources: src/
     scheme:
       environmentVariables:
         - variable: RUST_BACKTRACE
@@ -25,22 +26,34 @@ targets:
         - variable: RUST_LOG
           value: info
           isEnabled: true
-        - variable: METAL_DEVICE_WRAPPER_TYPE
-          value: 1
-          isEnabled: true
     settings:
       base:
+        HEADER_SEARCH_PATHS: ["$(inherited)", "src/"]
         OTHER_LDFLAGS: ["$(inherited)", "-lminiquad_ios_example"]
         ENABLE_BITCODE: NO
-        CLANG_CXX_LANGUAGE_STANDARD: c++14
+        CLANG_CXX_LANGUAGE_STANDARD: c++11
         CLANG_CXX_LIBRARY: libc++
       configs:
         debug:
-          HEADER_SEARCH_PATHS: ["$(inherited)", "src/"]
-          LIBRARY_SEARCH_PATHS: ["$(inherited)", "../target/universal/debug"]
+          "LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]":
+            - $(inherited)
+            - "../target/aarch64-apple-ios/debug"
+          "LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=arm64]":
+            - $(inherited)
+            - "../target/aarch64-apple-ios-sim/debug"
+          "LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]":
+            - $(inherited)
+            - "../target/x86_64-apple-ios/debug"
         release:
-          HEADER_SEARCH_PATHS: ["$(inherited)", "src/"]
-          LIBRARY_SEARCH_PATHS: ["$(inherited)", "../target/universal/release"]
+          "LIBRARY_SEARCH_PATHS[sdk=iphoneos*][arch=arm64]":
+            - $(inherited)
+            - "../target/aarch64-apple-ios/release"
+          "LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=arm64]":
+            - $(inherited)
+            - "../target/aarch64-apple-ios-sim/release"
+          "LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*][arch=x86_64]":
+            - $(inherited)
+            - "../target/x86_64-apple-ios/release"
     dependencies:
       - sdk: OpenGLES.framework
       - sdk: GLKit.framework

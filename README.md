@@ -2,18 +2,19 @@
 
 ## Build & Run
 
-### Install Rust targets
-```bash
-rustup target add aarch64-apple-ios x86_64-apple-ios
+### Install Rust targets:
+- `aarch64-apple-ios`: iOS devices
+- `x86_64-apple-ios`: iOS simulator on x86 processors
+- `aarch64-apple-ios-sim`: iOS simulator on Apple processors
+
+```shell
+rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-ios-sim
 ```
 
-### Install [cargo-lipo](https://github.com/TimNN/cargo-lipo)
-```bash
-cargo install cargo-lipo
-```
+### Install [Xcodegen](https://github.com/yonaskolb/XcodeGen)
 
-### Build [Xcode project](https://github.com/yonaskolb/XcodeGen)
-```bash
+### Build Xcode project
+```shell
 cd ios
 xcodegen
 ```
